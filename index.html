@@ -19,60 +19,95 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>CCTB - DevOps Infrastructure Level 1</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-  <title>CCTB - DevOps Infrastructure Level 1</title>
-</head>
+  <body>
+    <p>My EC2 Instance Public IP:</p>
+    <div id="ec2-ip">Loading...</div>
 
-<body>
-  <h1 id="title">MidTerm Exam - DevOps Infrastructure Level 1</h1>
+    <p>The IP IC2 is: <strong id="ec2-ip2">Loading...</strong></p>
 
-  <div class="container">
-    <!-- Left Panel -->
-    <div class="left-panel">
-      <h2 id="challenge">H2O Challenge</h2>
-      <h3>Daily Target: 2 Liters</h3>
-      <div class="cup">
-        <div class="remained" id="remained">
-          <span id="liters">2L</span>
-          <small>Remained</small>
+    <h2>Guenda Zorz</h2>
+    <h3>2025-06-12</h3>
+    <h1 id="title">MidTerm Exam - DevOps Infrastructure Level 1</h1>
+
+    <div class="container">
+      <!-- Left Panel -->
+      <div class="left-panel">
+        <h2 id="challenge">H2O Challenge</h2>
+        <h3>Daily Target: 2 Liters</h3>
+        <div class="cup">
+          <div class="remained" id="remained">
+            <span id="liters">2L</span>
+            <small>Remained</small>
+          </div>
+          <div class="percentage" id="percentage"></div>
         </div>
-        <div class="percentage" id="percentage"></div>
+      </div>
+
+      <!-- Right Panel -->
+      <div class="right-panel">
+        <p class="text">
+          Stay Hydrated, Stay Healthy <br />
+          Monitor Your Daily Water Goals!
+        </p>
+        <div class="cups">
+          <div class="cup cup-small">250 ml</div>
+          <div class="cup cup-small">250 ml</div>
+          <div class="cup cup-small">250 ml</div>
+          <div class="cup cup-small">250 ml</div>
+          <div class="cup cup-small">250 ml</div>
+          <div class="cup cup-small">250 ml</div>
+          <div class="cup cup-small">250 ml</div>
+          <div class="cup cup-small">250 ml</div>
+        </div>
       </div>
     </div>
 
-    <!-- Right Panel -->
-    <div class="right-panel">
-      <p class="text">Stay Hydrated, Stay Healthy <br> Monitor Your Daily Water Goals!</p>
-      <div class="cups">
-        <div class="cup cup-small">250 ml</div>
-        <div class="cup cup-small">250 ml</div>
-        <div class="cup cup-small">250 ml</div>
-        <div class="cup cup-small">250 ml</div>
-        <div class="cup cup-small">250 ml</div>
-        <div class="cup cup-small">250 ml</div>
-        <div class="cup cup-small">250 ml</div>
-        <div class="cup cup-small">250 ml</div>
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <img
+          src="https://s3.us-east-2.amazonaws.com/4stay/landing_pages/logos/000/007/562/original/CCTB_logo_1_RGB.png?1614205756"
+          alt="CCTB Logo"
+          class="footer-logo"
+        />
+        <p>
+          Instructor: <strong>Washington Valencia</strong> |
+          <strong>Canadian College of Technology and Business (CCTB)</strong>
+        </p>
       </div>
-    </div>
-  </div>
+    </footer>
+    <script>
+  // External IP via ipify.org
+  fetch("https://api.ipify.org?format=json")
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById("ec2-ip").textContent = data.ip;
+    })
+    .catch(_ => {
+      document.getElementById("ec2-ip").textContent = "Error";
+    });
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <img
-        src="https://s3.us-east-2.amazonaws.com/4stay/landing_pages/logos/000/007/562/original/CCTB_logo_1_RGB.png?1614205756"
-        alt="CCTB Logo" class="footer-logo" />
-      <p>Instructor: <strong>Washington Valencia</strong> | <strong>Canadian College of Technology and Business
-          (CCTB)</strong></p>
-    </div>
-  </footer>
+  // Server-side IP via server-ip.txt
+  fetch("/server-ip.txt")
+    .then(r => r.text())
+    .then(text => {
+      document.getElementById("ec2-ip2").textContent = text.trim();
+    })
+    .catch(_ => {
+      document.getElementById("ec2-ip2").textContent = "Error";
+    });
+</script>
 
 
-  <script src="script.js"></script>
-</body>
-
+    <script src="script.js"></script>
+    
+    </script>
+  </body>
 </html>
